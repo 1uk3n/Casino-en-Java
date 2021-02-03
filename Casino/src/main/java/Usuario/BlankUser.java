@@ -1,38 +1,40 @@
 package Usuario;
 
-public abstract class BlankUser {
+import java.io.Serializable;
+
+public abstract class BlankUser implements Serializable{
     String nombre;
+    String contrasenia;
     int fichas;
 
-    public void BlankUser(String nombre, int fichas){
-        this.nombre = nombre;
-        this.fichas = fichas;
-    }
-
-    int getFichas(){
+    public int getFichas(){
         return fichas;
     }
 
-    String getNombre(){
+    public String getNombre(){
         return nombre;
     }
+    
+    public String getContrasenia(){
+        return contrasenia;
+    }
 
-    void setFichas(int fichas){
+    public void setFichas(int fichas){
         this.fichas = fichas;
     }
 
-    void setNombre(String nombre){
+    public void setNombre(String nombre){
         this.nombre = nombre;
     }
 
-    int apostarFichas(int fichas){
+    public int apostarFichas(int fichas){
         this.fichas -= fichas;
         return fichas;
     }
 
-    abstract int getRango();
+    public abstract int getRango();
 
-    abstract void depositarFichas(int fichasGanadas);
+    public abstract void depositarFichas(int fichasGanadas);
    
-    abstract int retirarFichas(int apuesta);
+    public abstract int retirarFichas(int apuesta);
 }

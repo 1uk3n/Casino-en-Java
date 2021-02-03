@@ -3,18 +3,24 @@ package Usuario;
 
 public class SilverUser extends BlankUser{
     
+    public SilverUser(String nombre, String contrasenia, int fichas){
+        this.nombre = nombre;
+        this.fichas = fichas;
+        this.contrasenia = contrasenia;
+    }
+    
     @Override
-    int getRango() {
+    public int getRango() {
         return 1;
     }
     
     @Override
-    void depositarFichas(int fichasGanadas) {
+    public void depositarFichas(int fichasGanadas) {
         fichas += fichasGanadas + (int) (fichasGanadas * 0.05);
     }
 
     @Override
-    int retirarFichas(int apuesta) {
+    public int retirarFichas(int apuesta) {
         return apostarFichas(apuesta) + (int) (apuesta * 0.05);
     }
 }
