@@ -19,9 +19,8 @@ public class MaquinaTragamonedas extends Game{
     public int juego(){
         juegoIniciado = false;
         Random rng = new Random();
-        int casillaGanadora = rng.nextInt(21);
         
-        switch(casillaGanadora){
+        switch(rng.nextInt(21)){
             
             case 0,1,2,3,4,5:
                 if(casillaElegida == 1){

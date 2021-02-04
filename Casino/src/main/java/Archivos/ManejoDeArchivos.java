@@ -30,10 +30,11 @@ public class ManejoDeArchivos {
                 System.out.println("No es posible escribir en este directorio.");
                 return false;
             }catch(IOException e){
-                System.out.println("Error de entrada y salida.");
+                System.out.println("Error de entrada y salida." + e.getMessage());
                 return false;
             }
             System.out.println("Bienvenido, es el primer usuario de este programa.");
+            register("Admin", "Password",true);
         }
         
         return true;
@@ -42,8 +43,8 @@ public class ManejoDeArchivos {
     
     public static boolean login(String user, String pwd){
         
-        BlankUser current= null;
-        ObjectInputStream is = null;
+        BlankUser current;
+        ObjectInputStream is;
         
         try{
             is = new ObjectInputStream(new FileInputStream("Usuarios.ser"));
@@ -51,15 +52,16 @@ public class ManejoDeArchivos {
             System.out.println("No se ha creado el archivo de usuarios.");
             return false;
         }catch(IOException e){
-            System.out.println("Error de entrada y salida.");
+            System.out.println("Error de entrada y salida." + e.getMessage());
             return false;
         }
         
         try{
             
             while(true){
+
                 current = (BlankUser) is.readObject();
-                if(current.getNombre().equals(user))
+                if(current.getNombre().equals(user)){
                     if(current.getContrasenia().equals(pwd)){
                         Singleton.createInstance(current);
                         try{
@@ -69,6 +71,7 @@ public class ManejoDeArchivos {
                         }
                         return true;
                     } 
+                }
             }
             
         }catch(NullPointerException e){
@@ -90,9 +93,55 @@ public class ManejoDeArchivos {
     }
     
     
-    public static boolean register(String nombre, String pwd){
+    public static boolean register(String nombre, String pwd) {
+
+        AppendObjectOutputStream os;
+
+        try {
+            os = new AppendObjectOutputStream(new FileOutputStream("Usuarios.ser", true));
+        } catch (FileNotFoundException e) {
+            System.out.println("No se ha creado el archivo de usuarios.");
+            return false;
+        } catch (IOException e) {
+            System.out.println("Error de entrada y salida." + e.getMessage());
+            return false;
+        }
+
+        try {
+
+            os.writeObject((BlankUser) new SilverUser(nombre, pwd, 100));
+            System.out.println("Ha sido registrado exitosamente, le hemos regalado 100 fichas.");
+
+            try {
+                os.close();
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el escritor.");
+            }
+            return true;
+
+        } catch (InvalidClassException e) {
+            System.out.println("Error con la clase inicial.");
+        } catch (NotSerializableException e) {
+            System.out.println("No es posible serializar el objeto.");
+        } catch (IOException e) {
+            System.out.println("Error de entrada o salida.");
+        } catch (NullPointerException e) {
+            System.out.println("No se inicializó el objeto.");
+            return false;
+        }
+
+        try {
+            os.close();
+        } catch (IOException e) {
+            System.out.println("Error al cerrar el escritor.");
+        }
+
+        return false;
+    }
+    
+    public static boolean register(String nombre, String pwd, boolean flag){
         
-        ObjectOutputStream os = null;
+        ObjectOutputStream os;
         
         try{
             os = new ObjectOutputStream(new FileOutputStream("Usuarios.ser", true));
@@ -100,15 +149,14 @@ public class ManejoDeArchivos {
             System.out.println("No se ha creado el archivo de usuarios.");
             return false;
         }catch(IOException e){
-            System.out.println("Error de entrada y salida.");
+            System.out.println("Error de entrada y salida." + e.getMessage());
             return false;
         }
         
         try{
             
-            os.writeObject((BlankUser) new SilverUser(nombre,pwd,100));
+            os.writeObject((BlankUser) new AdminUser(nombre,pwd,99999999));
             
-            System.out.println("Ha sido registrado exitosamente, le hemos regalado 100 fichas.");
             try {
                 os.close();
             } catch (IOException e) {
@@ -143,8 +191,8 @@ public class ManejoDeArchivos {
         }
         
         List<BlankUser> users = new LinkedList<>();
-        BlankUser current = null;
-        ObjectInputStream is = null;
+        BlankUser current;
+        ObjectInputStream is;
         
         try{
             is = new ObjectInputStream(new FileInputStream("Usuarios.ser"));
@@ -152,7 +200,7 @@ public class ManejoDeArchivos {
             System.out.println("No se ha creado el archivo de usuarios.");
             return false;
         }catch(IOException e){
-            System.out.println("Error de entrada y salida.");
+            System.out.println("Error de entrada y salida." + e.getMessage());
             return false;
         }
         
@@ -193,7 +241,7 @@ public class ManejoDeArchivos {
             System.out.println("Error al cerrar el lector.");
         }
         
-        ObjectOutputStream os = null;
+        ObjectOutputStream os;
         
         try{
             os = new ObjectOutputStream(new FileOutputStream("Usuarios.ser"));
@@ -201,7 +249,7 @@ public class ManejoDeArchivos {
             System.out.println("No se ha creado el archivo de usuarios.");
             return false;
         }catch(IOException e){
-            System.out.println("Error de entrada y salida.");
+            System.out.println("Error de entrada y salida." + e.getMessage());
             return false;
         }
         
