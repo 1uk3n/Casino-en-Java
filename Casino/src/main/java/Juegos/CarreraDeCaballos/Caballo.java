@@ -22,7 +22,6 @@ public class Caballo implements Runnable {
         this.win_streak = rand.nextInt(3);
         this.number = number;
         this.img = new ImageIcon("C:\\Users\\Andy\\Documents\\NetBeansProjects\\Casino-en-Java\\Casino\\src\\main\\java\\Juegos\\CarreraDeCaballos\\horse.png").getImage();
-        System.out.println("Caballo " + name + " agregado");
     }
 
     public Image getImg() {

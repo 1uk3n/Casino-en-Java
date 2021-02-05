@@ -33,10 +33,9 @@ public class Hipodromo extends JPanel implements Runnable {
     
     public Hipodromo() throws InterruptedException{
         
-        setPreferredSize(new Dimension(800, 600));
-        
-        
+        setPreferredSize(new Dimension(800, 700));
         addCaballos();
+        
         for (Caballo caballo : caballos) {
             System.out.println("CAballo " + caballo.getName() + " agregado a hilo");
             hilos.add(new Thread(caballo));  
@@ -44,12 +43,14 @@ public class Hipodromo extends JPanel implements Runnable {
     }
      
      public void paintComponent(Graphics g) {
+       
         super.paintComponent(g);
         g.drawImage(new ImageIcon("C:\\Users\\Andy\\Documents\\NetBeansProjects\\Casino-en-Java\\Casino\\src\\main\\java\\Juegos\\CarreraDeCaballos\\road.png").getImage(), 0, 0, this);
          for (Caballo caballo : caballos) {
              int x = caballo.getPosition() * 70;
              int y = caballo.getNumber() * 65;
              g.drawImage(caballo.getImg(), x, y, this);
+             
          }
     }
        
@@ -60,7 +61,8 @@ public class Hipodromo extends JPanel implements Runnable {
             hilo.start();
            
         }
-         for (Thread hilo : hilos) {
+        
+        for (Thread hilo : hilos) {
             System.out.println("Hilo " + hilo.getName() + "iniciado");
             hilo.join();
            
@@ -76,12 +78,9 @@ public class Hipodromo extends JPanel implements Runnable {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Hipodromo.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
+                    }                    
                     repaint();
-                    
-                }
-                
+                }            
             }
     }
     
