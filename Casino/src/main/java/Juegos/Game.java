@@ -14,16 +14,12 @@ public class Game {
     
     // Asegurar que usuario tenga fichas
     public void apostar(int fichasUsuario){
-        if(fichasUsuario < 0 && fichasSobreLaMesa == 0){
-            fichasSobreLaMesa += fichasUsuario;
-        }else{
-            System.out.println("No es posible realizar esta apuesta");
-        }
+        fichasSobreLaMesa += fichasUsuario;
     } 
     
     // Regresar fichas ganadas
     public int resultado(double multiplicador){
-        return (int)(fichasSobreLaMesa * multiplicador);
+        return (int)Math.ceil((fichasSobreLaMesa * multiplicador));
     }
     
     // Regresar apuesta en caso de salir sin jugar

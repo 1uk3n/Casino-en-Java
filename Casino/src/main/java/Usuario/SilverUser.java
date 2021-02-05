@@ -16,11 +16,11 @@ public class SilverUser extends BlankUser{
     
     @Override
     public void depositarFichas(int fichasGanadas) {
-        fichas += fichasGanadas + (int) (fichasGanadas * 0.05);
+        fichas += fichasGanadas + (int)Math.ceil(fichasGanadas * 0.05);
     }
 
     @Override
-    public int retirarFichas(int apuesta) {
-        return apostarFichas(apuesta) + (int) (apuesta * 0.05);
+    public int retirarFichas(int apuesta) throws ExCasino.InvalidBet{
+        return apostarFichas(apuesta) + (int)Math.ceil(apuesta * 0.05);
     }
 }
