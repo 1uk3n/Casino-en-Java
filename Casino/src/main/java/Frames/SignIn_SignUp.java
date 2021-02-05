@@ -7,10 +7,13 @@ package Frames;
 
 import java.awt.Color;
 import Archivos.ManejoDeArchivos;
-import Usuario.Singleton;
+import Usuario.*;
+import ExCasino.*;
+import Juegos.*;
 import java.awt.Dimension;
 import java.nio.file.Paths;
 import java.io.File;
+import java.util.Random;
 
 /**
  *
@@ -23,15 +26,20 @@ public class SignIn_SignUp extends javax.swing.JFrame {
      */
     public SignIn_SignUp() {
         initComponents();
-        LoginBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "loginBackground.png"));
+        LoginBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "LoginBackground.png"));
         MainFrame = this;
+        LoginActionLabel.setVisible(false);
+        MenuActionLabel.setVisible(false);
         
         MainPanel.remove(LoginPanel);
+        MainPanel.remove(BetPanel);
         MainPanel.remove(MenuPanel);
+        MainPanel.remove(SlotMachineSelectPanel);
+        MainPanel.remove(SlotMachineGamePanel);
         
         MainFrame.setPreferredSize(new Dimension(LoginPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right , 
                                                    LoginPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
-                
+        MainFrame.setResizable(false);
         MainPanel.add(LoginPanel);
         MainFrame.pack();
     }
@@ -58,7 +66,6 @@ public class SignIn_SignUp extends javax.swing.JFrame {
         LoginBackground = new javax.swing.JLabel();
         MenuPanel = new javax.swing.JPanel();
         DisplayUsernameLabel = new javax.swing.JLabel();
-        WelcomeLabel = new javax.swing.JLabel();
         TokenLabel = new javax.swing.JLabel();
         DisplayTokensLabel = new javax.swing.JLabel();
         CaballosGameButton = new javax.swing.JButton();
@@ -66,6 +73,49 @@ public class SignIn_SignUp extends javax.swing.JFrame {
         TragamonedasGameButton = new javax.swing.JButton();
         LogoutButton = new javax.swing.JButton();
         MenuActionLabel = new javax.swing.JLabel();
+        AccountBoostButton = new javax.swing.JButton();
+        TokenButton = new javax.swing.JButton();
+        UserCardLabel = new javax.swing.JLabel();
+        UserBackgroundLabel = new javax.swing.JLabel();
+        MenuBackground = new javax.swing.JLabel();
+        BetPanel = new javax.swing.JPanel();
+        BetTitle = new javax.swing.JLabel();
+        BetButton = new javax.swing.JButton();
+        BetTextField = new javax.swing.JTextField();
+        BetActionLabel = new javax.swing.JLabel();
+        BetBackground = new javax.swing.JLabel();
+        SlotMachineSelectPanel = new javax.swing.JPanel();
+        SlotMachineTitle = new javax.swing.JLabel();
+        LemonButton = new javax.swing.JButton();
+        GrapeButton = new javax.swing.JButton();
+        AppleButton = new javax.swing.JButton();
+        WatermelonButton = new javax.swing.JButton();
+        CrownButton = new javax.swing.JButton();
+        StarButton = new javax.swing.JButton();
+        LemonTimes = new javax.swing.JLabel();
+        GrapeTimes = new javax.swing.JLabel();
+        AppleTimes = new javax.swing.JLabel();
+        WatermelonTimes = new javax.swing.JLabel();
+        StarTimes = new javax.swing.JLabel();
+        CrownTimes = new javax.swing.JLabel();
+        LemonReward = new javax.swing.JLabel();
+        GrapeReward = new javax.swing.JLabel();
+        AppleReward = new javax.swing.JLabel();
+        WatermelonReward = new javax.swing.JLabel();
+        StarReward = new javax.swing.JLabel();
+        CrownReward = new javax.swing.JLabel();
+        SlotMachineSelectPanelBackground = new javax.swing.JLabel();
+        SlotMachineGamePanel = new javax.swing.JPanel();
+        WatermelonLabel = new javax.swing.JLabel();
+        LemonLabel = new javax.swing.JLabel();
+        GrapeLabel = new javax.swing.JLabel();
+        AppleLabel = new javax.swing.JLabel();
+        StarLabel = new javax.swing.JLabel();
+        CrownLabel = new javax.swing.JLabel();
+        ArrowLabel = new javax.swing.JLabel();
+        ReturnSlotMachineButton = new javax.swing.JButton();
+        GameStateSlotMachineLabel = new javax.swing.JLabel();
+        SlotMachineGameBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,11 +147,6 @@ public class SignIn_SignUp extends javax.swing.JFrame {
         UsernameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 UsernameTextFieldFocusGained(evt);
-            }
-        });
-        UsernameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsernameTextFieldActionPerformed(evt);
             }
         });
         LoginPanel.add(UsernameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 180, 30));
@@ -139,31 +184,33 @@ public class SignIn_SignUp extends javax.swing.JFrame {
         });
         LoginPanel.add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 140, 40));
 
-        LoginActionLabel.setFont(new java.awt.Font("Perpetua Titling MT", 0, 10)); // NOI18N
+        LoginActionLabel.setBackground(new java.awt.Color(255, 255, 255));
+        LoginActionLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
         LoginActionLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         LoginActionLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        LoginPanel.add(LoginActionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        LoginActionLabel.setOpaque(true);
+        LoginPanel.add(LoginActionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 400, 20));
         LoginPanel.add(LoginBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 280));
 
         MainPanel.add(LoginPanel, "card3");
 
-        DisplayUsernameLabel.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
+        MenuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        DisplayUsernameLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
         DisplayUsernameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         DisplayUsernameLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        MenuPanel.add(DisplayUsernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 180, 20));
 
-        WelcomeLabel.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
-        WelcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        WelcomeLabel.setText("Bienvenido");
-        WelcomeLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
-        TokenLabel.setFont(new java.awt.Font("Perpetua Titling MT", 0, 12)); // NOI18N
+        TokenLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 12)); // NOI18N
         TokenLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TokenLabel.setText("Fichas:");
         TokenLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        MenuPanel.add(TokenLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 50, 20));
 
-        DisplayTokensLabel.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
+        DisplayTokensLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
         DisplayTokensLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         DisplayTokensLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        MenuPanel.add(DisplayTokensLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 120, 20));
 
         CaballosGameButton.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
         CaballosGameButton.setText("Caballos");
@@ -172,6 +219,7 @@ public class SignIn_SignUp extends javax.swing.JFrame {
                 CaballosGameButtonActionPerformed(evt);
             }
         });
+        MenuPanel.add(CaballosGameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 150, 30));
 
         BlackJackGameButton.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
         BlackJackGameButton.setText("BlackJack");
@@ -180,6 +228,7 @@ public class SignIn_SignUp extends javax.swing.JFrame {
                 BlackJackGameButtonActionPerformed(evt);
             }
         });
+        MenuPanel.add(BlackJackGameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 150, 30));
 
         TragamonedasGameButton.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
         TragamonedasGameButton.setText("Tragamonedas");
@@ -188,6 +237,7 @@ public class SignIn_SignUp extends javax.swing.JFrame {
                 TragamonedasGameButtonActionPerformed(evt);
             }
         });
+        MenuPanel.add(TragamonedasGameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, 30));
 
         LogoutButton.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
         LogoutButton.setText("Cerrar sesión");
@@ -196,62 +246,222 @@ public class SignIn_SignUp extends javax.swing.JFrame {
                 LogoutButtonActionPerformed(evt);
             }
         });
+        MenuPanel.add(LogoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 150, -1));
 
-        MenuActionLabel.setFont(new java.awt.Font("Perpetua Titling MT", 0, 10)); // NOI18N
+        MenuActionLabel.setBackground(new java.awt.Color(255, 255, 255));
+        MenuActionLabel.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
         MenuActionLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         MenuActionLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        MenuActionLabel.setOpaque(true);
+        MenuPanel.add(MenuActionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 280, 20));
 
-        javax.swing.GroupLayout MenuPanelLayout = new javax.swing.GroupLayout(MenuPanel);
-        MenuPanel.setLayout(MenuPanelLayout);
-        MenuPanelLayout.setHorizontalGroup(
-            MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuPanelLayout.createSequentialGroup()
-                        .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(MenuPanelLayout.createSequentialGroup()
-                                .addComponent(WelcomeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DisplayUsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(MenuPanelLayout.createSequentialGroup()
-                                .addComponent(TokenLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TragamonedasGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BlackJackGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CaballosGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(DisplayTokensLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(MenuActionLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        MenuPanelLayout.setVerticalGroup(
-            MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DisplayUsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TokenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DisplayTokensLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(BlackJackGameButton)
-                .addGap(18, 18, 18)
-                .addComponent(TragamonedasGameButton)
-                .addGap(18, 18, 18)
-                .addComponent(CaballosGameButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(LogoutButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(MenuActionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
+        AccountBoostButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccountBoostButtonActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(AccountBoostButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 70, 40));
+
+        TokenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TokenButtonActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(TokenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 70, 40));
+        MenuPanel.add(UserCardLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 70, 40));
+        MenuPanel.add(UserBackgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 110));
+        MenuPanel.add(MenuBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 280));
 
         MainPanel.add(MenuPanel, "card2");
+
+        BetPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BetTitle.setFont(new java.awt.Font("Perpetua", 1, 18)); // NOI18N
+        BetTitle.setForeground(new java.awt.Color(255, 255, 255));
+        BetTitle.setText("Ingrese un número entero indicando su apuesta");
+        BetPanel.add(BetTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 22, -1, 29));
+
+        BetButton.setFont(new java.awt.Font("Perpetua", 1, 18)); // NOI18N
+        BetButton.setText("Apostar");
+        BetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BetButtonActionPerformed(evt);
+            }
+        });
+        BetPanel.add(BetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 133, -1, -1));
+
+        BetTextField.setFont(new java.awt.Font("Perpetua", 1, 18)); // NOI18N
+        BetTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        BetPanel.add(BetTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 79, 223, -1));
+
+        BetActionLabel.setBackground(new java.awt.Color(255, 255, 255));
+        BetActionLabel.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
+        BetActionLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BetActionLabel.setOpaque(true);
+        BetPanel.add(BetActionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 173, 420, 25));
+        BetPanel.add(BetBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -4, 430, 200));
+
+        MainPanel.add(BetPanel, "card4");
+
+        SlotMachineSelectPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        SlotMachineTitle.setBackground(new java.awt.Color(255, 255, 255));
+        SlotMachineTitle.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        SlotMachineTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SlotMachineTitle.setText("Seleccione una casilla");
+        SlotMachineTitle.setOpaque(true);
+        SlotMachineSelectPanel.add(SlotMachineTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 230, -1));
+
+        LemonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LemonButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineSelectPanel.add(LemonButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 70, 60));
+
+        GrapeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GrapeButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineSelectPanel.add(GrapeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 70, 60));
+
+        AppleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AppleButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineSelectPanel.add(AppleButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 70, 60));
+
+        WatermelonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WatermelonButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineSelectPanel.add(WatermelonButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 70, 60));
+
+        CrownButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrownButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineSelectPanel.add(CrownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 70, 60));
+
+        StarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StarButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineSelectPanel.add(StarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 70, 60));
+
+        LemonTimes.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        LemonTimes.setForeground(new java.awt.Color(255, 255, 255));
+        LemonTimes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LemonTimes.setText("6");
+        SlotMachineSelectPanel.add(LemonTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 30, -1));
+
+        GrapeTimes.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        GrapeTimes.setForeground(new java.awt.Color(255, 255, 255));
+        GrapeTimes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GrapeTimes.setText("5");
+        SlotMachineSelectPanel.add(GrapeTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 30, -1));
+
+        AppleTimes.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        AppleTimes.setForeground(new java.awt.Color(255, 255, 255));
+        AppleTimes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AppleTimes.setText("4");
+        SlotMachineSelectPanel.add(AppleTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 30, -1));
+
+        WatermelonTimes.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        WatermelonTimes.setForeground(new java.awt.Color(255, 255, 255));
+        WatermelonTimes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WatermelonTimes.setText("3");
+        SlotMachineSelectPanel.add(WatermelonTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 30, -1));
+
+        StarTimes.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        StarTimes.setForeground(new java.awt.Color(255, 255, 255));
+        StarTimes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        StarTimes.setText("2");
+        SlotMachineSelectPanel.add(StarTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 30, -1));
+
+        CrownTimes.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        CrownTimes.setForeground(new java.awt.Color(255, 255, 255));
+        CrownTimes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CrownTimes.setText("1");
+        SlotMachineSelectPanel.add(CrownTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 30, -1));
+
+        LemonReward.setBackground(new java.awt.Color(255, 255, 255));
+        LemonReward.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        LemonReward.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LemonReward.setText("x1.2");
+        LemonReward.setOpaque(true);
+        SlotMachineSelectPanel.add(LemonReward, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 70, -1));
+
+        GrapeReward.setBackground(new java.awt.Color(255, 255, 255));
+        GrapeReward.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        GrapeReward.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GrapeReward.setText("x1.4");
+        GrapeReward.setOpaque(true);
+        SlotMachineSelectPanel.add(GrapeReward, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 70, -1));
+
+        AppleReward.setBackground(new java.awt.Color(255, 255, 255));
+        AppleReward.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        AppleReward.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AppleReward.setText("x1.6");
+        AppleReward.setOpaque(true);
+        SlotMachineSelectPanel.add(AppleReward, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 70, -1));
+
+        WatermelonReward.setBackground(new java.awt.Color(255, 255, 255));
+        WatermelonReward.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        WatermelonReward.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        WatermelonReward.setText("x1.8");
+        WatermelonReward.setOpaque(true);
+        SlotMachineSelectPanel.add(WatermelonReward, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 70, -1));
+
+        StarReward.setBackground(new java.awt.Color(255, 255, 255));
+        StarReward.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        StarReward.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        StarReward.setText("x2");
+        StarReward.setOpaque(true);
+        SlotMachineSelectPanel.add(StarReward, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 70, -1));
+
+        CrownReward.setBackground(new java.awt.Color(255, 255, 255));
+        CrownReward.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        CrownReward.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CrownReward.setText("x3");
+        CrownReward.setOpaque(true);
+        SlotMachineSelectPanel.add(CrownReward, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 70, -1));
+        SlotMachineSelectPanel.add(SlotMachineSelectPanelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 230));
+
+        MainPanel.add(SlotMachineSelectPanel, "card5");
+
+        SlotMachineGamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        SlotMachineGamePanel.add(WatermelonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 254, 70, 60));
+        SlotMachineGamePanel.add(LemonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 20, 70, 60));
+        SlotMachineGamePanel.add(GrapeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 98, 70, 60));
+        SlotMachineGamePanel.add(AppleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 176, 70, 60));
+        SlotMachineGamePanel.add(StarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 332, 70, 60));
+        SlotMachineGamePanel.add(CrownLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 410, 70, 60));
+        SlotMachineGamePanel.add(ArrowLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 150, 60));
+
+        ReturnSlotMachineButton.setFont(new java.awt.Font("Perpetua", 1, 18)); // NOI18N
+        ReturnSlotMachineButton.setText("Volver");
+        ReturnSlotMachineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnSlotMachineButtonActionPerformed(evt);
+            }
+        });
+        SlotMachineGamePanel.add(ReturnSlotMachineButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 100, 50));
+
+        GameStateSlotMachineLabel.setFont(new java.awt.Font("Perpetua", 1, 18)); // NOI18N
+        GameStateSlotMachineLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SlotMachineGamePanel.add(GameStateSlotMachineLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 490, 170, 50));
+
+        SlotMachineGameBackground.setBackground(new java.awt.Color(0, 204, 0));
+        SlotMachineGameBackground.setOpaque(true);
+        SlotMachineGamePanel.add(SlotMachineGameBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 550));
+
+        MainPanel.add(SlotMachineGamePanel, "card6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,23 +490,47 @@ public class SignIn_SignUp extends javax.swing.JFrame {
     private void SignupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupButtonActionPerformed
         if(!UsernameTextField.getText().equals("AxelCas123") && !PasswordTextField.getText().equals("AxelCas123")){
             if(ManejoDeArchivos.register(UsernameTextField.getText(), PasswordTextField.getText())){
+                LoginActionLabel.setVisible(true);
                 LoginActionLabel.setText("Has sido registrado exitosamente.");
             }else{
-                LoginActionLabel.setText("Hubo un problema al intentar registrate.");
+                LoginActionLabel.setVisible(true);
+                LoginActionLabel.setText("Hubo un problema al intentar registrarte.");
             }
         }
         
     }//GEN-LAST:event_SignupButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
+
         if(!UsernameTextField.getText().equals("AxelCas123") && !PasswordTextField.getText().equals("AxelCas123")){
             if(ManejoDeArchivos.login(UsernameTextField.getText(), PasswordTextField.getText())){
-
-                DisplayUsernameLabel.setText(Singleton.getInstance().getNombre());
-                DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+                LoginActionLabel.setVisible(false);
+                LoginActionLabel.setText("");
                 UsernameTextField.setText("");
                 PasswordTextField.setText("");
                 
+                DisplayUsernameLabel.setText(Singleton.getInstance().getNombre());
+                DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+                
+                MenuBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "MenuBackground.png"));
+                AccountBoostButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "AccountBoost.png"));
+                TokenButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "TokenButton.png"));
+                UserBackgroundLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "UserBackgroundLabel.png"));
+                
+                switch(Singleton.getInstance().getRango()){
+                    case 1:
+                        UserCardLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "SilverCard.png"));
+                        break;
+                    case 2:
+                        UserCardLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "GoldCard.png"));
+                        break;
+                    case 3:
+                        UserCardLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "DiamondCard.png"));
+                        break;
+                    case 4:
+                        UserCardLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "AdminCard.png"));
+                        break;
+                }
                 MainPanel.remove(LoginPanel);
                 
                 MainFrame.setPreferredSize(new Dimension(MenuPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right , 
@@ -306,9 +540,11 @@ public class SignIn_SignUp extends javax.swing.JFrame {
                 MainFrame.pack();
 
             }else{
+                LoginActionLabel.setVisible(true);
                 LoginActionLabel.setText("Hubo un problema al intentar iniciar tu sesión.");
             }
         }
+        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void UsernameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsernameTextFieldFocusGained
@@ -325,24 +561,80 @@ public class SignIn_SignUp extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PasswordTextFieldFocusGained
 
-    private void UsernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsernameTextFieldActionPerformed
-
     private void CaballosGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaballosGameButtonActionPerformed
-        // TODO add your handling code here:
+        if(Singleton.getInstance().hasTokens()){
+            
+            ongoingGame = 2;
+            
+            MenuActionLabel.setVisible(false);
+            MenuActionLabel.setText("");
+            MainPanel.remove(MenuPanel);
+            
+            BetActionLabel.setVisible(false);
+            BetBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "BetBackground.png"));
+            MainFrame.setPreferredSize(new Dimension(BetPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                    BetPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+
+            MainPanel.add(BetPanel);
+            MainFrame.pack();
+            
+        }else{
+            MenuActionLabel.setVisible(true);
+            MenuActionLabel.setText("No tienes fichas.");
+        }
     }//GEN-LAST:event_CaballosGameButtonActionPerformed
 
     private void BlackJackGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlackJackGameButtonActionPerformed
-        // TODO add your handling code here:
+        if(Singleton.getInstance().hasTokens()){
+            
+            ongoingGame = 1;
+            
+            MenuActionLabel.setVisible(false);
+            MenuActionLabel.setText("");
+            MainPanel.remove(MenuPanel);
+            
+            BetActionLabel.setVisible(false);
+            BetBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "BetBackground.png"));
+            MainFrame.setPreferredSize(new Dimension(BetPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                    BetPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+
+            MainPanel.add(BetPanel);
+            MainFrame.pack();
+            
+        }else{
+            MenuActionLabel.setVisible(true);
+            MenuActionLabel.setText("No tienes fichas.");
+        }
     }//GEN-LAST:event_BlackJackGameButtonActionPerformed
 
     private void TragamonedasGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TragamonedasGameButtonActionPerformed
-        // TODO add your handling code here:
+        if(Singleton.getInstance().hasTokens()){
+            
+            ongoingGame = 3;
+            maquina.iniciarJuego();
+            
+            MenuActionLabel.setVisible(false);
+            MenuActionLabel.setText("");
+            MainPanel.remove(MenuPanel);
+            
+            BetActionLabel.setVisible(false);
+            BetBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "BetBackground.png"));
+            MainFrame.setPreferredSize(new Dimension(BetPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                    BetPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+
+            MainPanel.add(BetPanel);
+            MainFrame.pack();
+            
+        }else{
+            MenuActionLabel.setVisible(true);
+            MenuActionLabel.setText("No tienes fichas.");
+        }
     }//GEN-LAST:event_TragamonedasGameButtonActionPerformed
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
         if(ManejoDeArchivos.logout()){
+            MenuActionLabel.setVisible(false);
+            MenuActionLabel.setText("");
             MainPanel.remove(MenuPanel);
             
             MainFrame.setPreferredSize(new Dimension(LoginPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right , 
@@ -351,9 +643,174 @@ public class SignIn_SignUp extends javax.swing.JFrame {
             MainPanel.add(LoginPanel);
             MainFrame.pack();
         }else{
-            MenuActionLabel.setText("Hubo un error al intentar cerrar tu sesión");
+            MenuActionLabel.setVisible(true);
+            MenuActionLabel.setText("Hubo un error al intentar cerrar tu sesión.");
         }
     }//GEN-LAST:event_LogoutButtonActionPerformed
+
+    private void TokenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TokenButtonActionPerformed
+        MenuActionLabel.setVisible(false);
+        Singleton.getInstance().depositarFichas(10);
+        DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+    }//GEN-LAST:event_TokenButtonActionPerformed
+
+    private void AccountBoostButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountBoostButtonActionPerformed
+
+        switch(Singleton.getInstance().getRango()){
+            case 1:
+                if(Singleton.getInstance().pagarServicio(300)){
+                    MenuActionLabel.setVisible(false);
+                    Singleton.createInstance(Singleton.getInstance().upgradeRank());
+                    UserCardLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "GoldCard.png"));
+                    DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+                }else{
+                    MenuActionLabel.setVisible(true);
+                    MenuActionLabel.setText("No tienes las fichas suficientes (300).");
+                }
+                break;
+            case 2:
+                if(Singleton.getInstance().pagarServicio(600)){
+                    MenuActionLabel.setVisible(false);
+                    Singleton.createInstance(Singleton.getInstance().upgradeRank());
+                    UserCardLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "DiamondCard.png"));
+                    DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+                }else{
+                    MenuActionLabel.setVisible(true);
+                    MenuActionLabel.setText("No tienes las fichas suficientes (600).");
+                }
+                break;
+            case 3:
+                MenuActionLabel.setVisible(true);
+                MenuActionLabel.setText("Ya tienes el máximo rango");
+                break;
+            case 4:
+                MenuActionLabel.setVisible(true);
+                MenuActionLabel.setText("Ya tienes el verdadero máximo rango");
+                break;
+        }
+    }//GEN-LAST:event_AccountBoostButtonActionPerformed
+
+    private void BetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BetButtonActionPerformed
+        try{
+            ongoingBet = Singleton.getInstance().retirarFichas(Integer.parseInt(BetTextField.getText()));
+            DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+            
+            BetActionLabel.setVisible(false);
+            BetActionLabel.setText("");
+            
+            MainPanel.remove(BetPanel);
+
+            switch(ongoingGame){
+                // BlackJackPanel
+                case 1:
+                    //MainFrame.setPreferredSize(new Dimension(BlackJackPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                            //BlackJackPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+                    //MainPanel.add(BlackJackPanel);
+                    break;
+                    
+                // CaballosPanel
+                case 2:
+                    //MainFrame.setPreferredSize(new Dimension(CaballosPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                            //CaballosPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+                    //MainPanel.add(CaballosPanel);
+                    break;
+                    
+                // MaquinaPanel
+                case 3:
+                    
+                    LemonButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Lemon.png"));
+                    GrapeButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Grape.png"));
+                    AppleButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Apple.png"));
+                    WatermelonButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Watermelon.png"));
+                    StarButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Star.png"));
+                    CrownButton.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Crown.png"));
+                    SlotMachineSelectPanelBackground.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "SlotMachineSelectBackground.png"));
+                    
+                    MainFrame.setPreferredSize(new Dimension(SlotMachineSelectPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                            SlotMachineSelectPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+                    MainPanel.add(SlotMachineSelectPanel);
+                    
+                    maquina.apostar(ongoingBet);
+                    ongoingBet = 0;
+                    break;
+            }
+            
+            MainFrame.pack();
+        
+        }catch(InvalidBet e){
+            BetActionLabel.setVisible(true);
+            BetActionLabel.setText("Realizaste una apuesta no válida");
+        }catch(NumberFormatException e){
+            BetActionLabel.setVisible(true);
+            BetActionLabel.setText("Ingresa un número entero");
+        }
+    }//GEN-LAST:event_BetButtonActionPerformed
+    
+    private void LoadSlotMachineGame(){
+        MainPanel.remove(SlotMachineSelectPanel);
+
+        LemonLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Lemon.png"));
+        GrapeLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Grape.png"));
+        AppleLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Apple.png"));
+        WatermelonLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Watermelon.png"));
+        StarLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Star.png"));
+        CrownLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Crown.png"));
+        ArrowLabel.setIcon(new javax.swing.ImageIcon(Paths.get("").toAbsolutePath().toString() + File.separator + "Img" + File.separator + "Arrow.png"));
+        ReturnSlotMachineButton.setVisible(false);
+
+        MainFrame.setPreferredSize(new Dimension(SlotMachineGamePanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                SlotMachineGamePanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+        
+        MainPanel.add(SlotMachineGamePanel);
+
+        MainFrame.pack();
+    }
+  
+    
+    private void GrapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrapeButtonActionPerformed
+        maquina.casillaElegida = 2;
+        MainFrame.LoadSlotMachineGame();
+    }//GEN-LAST:event_GrapeButtonActionPerformed
+
+    private void AppleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppleButtonActionPerformed
+        maquina.casillaElegida = 3;
+        MainFrame.LoadSlotMachineGame();
+    }//GEN-LAST:event_AppleButtonActionPerformed
+
+    private void WatermelonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WatermelonButtonActionPerformed
+        maquina.casillaElegida = 4;
+        MainFrame.LoadSlotMachineGame();
+    }//GEN-LAST:event_WatermelonButtonActionPerformed
+
+    private void CrownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrownButtonActionPerformed
+        maquina.casillaElegida = 6;
+        MainFrame.LoadSlotMachineGame();
+    }//GEN-LAST:event_CrownButtonActionPerformed
+
+    private void StarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StarButtonActionPerformed
+        maquina.casillaElegida = 5;
+        MainFrame.LoadSlotMachineGame();
+    }//GEN-LAST:event_StarButtonActionPerformed
+
+    private void LemonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LemonButtonActionPerformed
+        maquina.casillaElegida = 1;
+        MainFrame.LoadSlotMachineGame();
+    }//GEN-LAST:event_LemonButtonActionPerformed
+
+    private void ReturnSlotMachineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnSlotMachineButtonActionPerformed
+        ReturnSlotMachineButton.setVisible(false);
+        GameStateSlotMachineLabel.setText("");
+        Singleton.getInstance().depositarFichas(maquina.terminarJuego());
+         
+        MainPanel.remove(SlotMachineGamePanel);
+        DisplayTokensLabel.setText(Integer.toString(Singleton.getInstance().getFichas()));
+        
+        MainFrame.setPreferredSize(new Dimension(MenuPanel.getPreferredSize().width + MainFrame.getInsets().left + MainFrame.getInsets().right,
+                MenuPanel.getPreferredSize().height + MainFrame.getInsets().top + MainFrame.getInsets().bottom));
+
+        MainPanel.add(MenuPanel);
+        MainFrame.pack();
+    }//GEN-LAST:event_ReturnSlotMachineButtonActionPerformed
     
     /**
      * @param args the command line arguments
@@ -370,10 +827,35 @@ public class SignIn_SignUp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AccountBoostButton;
+    private javax.swing.JButton AppleButton;
+    private javax.swing.JLabel AppleLabel;
+    private javax.swing.JLabel AppleReward;
+    private javax.swing.JLabel AppleTimes;
+    private javax.swing.JLabel ArrowLabel;
+    private javax.swing.JLabel BetActionLabel;
+    private javax.swing.JLabel BetBackground;
+    private javax.swing.JButton BetButton;
+    private javax.swing.JPanel BetPanel;
+    private javax.swing.JTextField BetTextField;
+    private javax.swing.JLabel BetTitle;
     private javax.swing.JButton BlackJackGameButton;
     private javax.swing.JButton CaballosGameButton;
+    private javax.swing.JButton CrownButton;
+    private javax.swing.JLabel CrownLabel;
+    private javax.swing.JLabel CrownReward;
+    private javax.swing.JLabel CrownTimes;
     private javax.swing.JLabel DisplayTokensLabel;
     private javax.swing.JLabel DisplayUsernameLabel;
+    private javax.swing.JLabel GameStateSlotMachineLabel;
+    private javax.swing.JButton GrapeButton;
+    private javax.swing.JLabel GrapeLabel;
+    private javax.swing.JLabel GrapeReward;
+    private javax.swing.JLabel GrapeTimes;
+    private javax.swing.JButton LemonButton;
+    private javax.swing.JLabel LemonLabel;
+    private javax.swing.JLabel LemonReward;
+    private javax.swing.JLabel LemonTimes;
     private javax.swing.JLabel LoginActionLabel;
     private javax.swing.JLabel LoginBackground;
     private javax.swing.JButton LoginButton;
@@ -381,17 +863,36 @@ public class SignIn_SignUp extends javax.swing.JFrame {
     private javax.swing.JButton LogoutButton;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel MenuActionLabel;
+    private javax.swing.JLabel MenuBackground;
     private javax.swing.JPanel MenuPanel;
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JPasswordField PasswordTextField;
+    private javax.swing.JButton ReturnSlotMachineButton;
     private javax.swing.JButton SignupButton;
+    private javax.swing.JLabel SlotMachineGameBackground;
+    private javax.swing.JPanel SlotMachineGamePanel;
+    private javax.swing.JPanel SlotMachineSelectPanel;
+    private javax.swing.JLabel SlotMachineSelectPanelBackground;
+    private javax.swing.JLabel SlotMachineTitle;
+    private javax.swing.JButton StarButton;
+    private javax.swing.JLabel StarLabel;
+    private javax.swing.JLabel StarReward;
+    private javax.swing.JLabel StarTimes;
     private javax.swing.JLabel Title;
+    private javax.swing.JButton TokenButton;
     private javax.swing.JLabel TokenLabel;
     private javax.swing.JButton TragamonedasGameButton;
+    private javax.swing.JLabel UserBackgroundLabel;
+    private javax.swing.JLabel UserCardLabel;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JTextField UsernameTextField;
-    private javax.swing.JLabel WelcomeLabel;
+    private javax.swing.JButton WatermelonButton;
+    private javax.swing.JLabel WatermelonLabel;
+    private javax.swing.JLabel WatermelonReward;
+    private javax.swing.JLabel WatermelonTimes;
     // End of variables declaration//GEN-END:variables
     private SignIn_SignUp MainFrame;
-
+    private int ongoingBet;
+    private int ongoingGame;
+    private MaquinaTragamonedas maquina = new MaquinaTragamonedas();
 }

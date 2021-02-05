@@ -13,4 +13,5 @@ public class Singleton {
     public static void createInstance(BlankUser newUser){
         currentUser = newUser;
     }
+    
 }

@@ -20,7 +20,7 @@ public class AdminUser extends BlankUser{
     }
 
     @Override
-    public int retirarFichas(int apuesta) {
+    public int retirarFichas(int apuesta) throws ExCasino.InvalidBet{
         return apostarFichas(apuesta);
     }
 }
